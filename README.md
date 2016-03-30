@@ -24,5 +24,7 @@ be converted to secondary and will be available for read queries.
 
 Assuming mongo node is running on localhost and port 27018. Script can be run as follows:
 
-```mongo localhost:27018 mongo-flip-hidden.js```
+```
+    mongo localhost:27018 mongo-flip-hidden.js
+```
 
