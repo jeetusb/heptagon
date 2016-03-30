@@ -1,2 +1,1 @@
-# automate-infra
 # heptagon
