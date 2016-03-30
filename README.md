@@ -2,7 +2,7 @@
 
 ## Mongo Server side Javascript to flip hidden/secondary replica.
 
-This mongo server side script will make secondary mongo replica to **hidden** 
+This mongo server side script will change mongo secondary node to **hidden replica** 
 if **replication lag** is greater than the defined **replication lag threshold**
 and will bring hidden replica again to secondary in vice versa case.
 
@@ -24,5 +24,7 @@ be converted to secondary and will be available for read queries.
 
 Assuming mongo node is running on **localhost** and port **27018**. Script can be run as follows:
 
-```mongo localhost:27018 mongo-flip-hidden.js```
+```
+    mongo localhost:27018 mongo-flip-hidden.js
+```
 
