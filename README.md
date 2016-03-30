@@ -3,8 +3,8 @@
 ## Mongo Server side Javascript to flip hidden/secondary replica.
 
 This mongo server side script will change mongo secondary node to **hidden replica** 
-if **replication lag** is greater than the defined **replication lag threshold**
-and will bring hidden replica again to secondary in vice versa case.
+in case if there is a **replication lag** greater than the defined **replication lag threshold**
+and will bring hidden replica back to secondary node in vice versa case.
 
 # Use Case
 
