@@ -55,45 +55,45 @@ if (master == true) {
         id = row._id;
 
         if (row.stateStr != 'PRIMARY') {
-            if (id != 3) {
 
-                replicationLag = getReplicationLag(primaryTime, row.optimeDate);
 
-                print("Processing Mongo Node with id " + id);
-                print("host [" + row.name + "] State [" + row.stateStr + "] Replication Lag [" + replicationLag + "] secs");
+            replicationLag = getReplicationLag(primaryTime, row.optimeDate);
 
-                if (replicationLag > replicationLagThreshold) {
+            print("Processing Mongo Node with id " + id);
+            print("host [" + row.name + "] State [" + row.stateStr + "] Replication Lag [" + replicationLag + "] secs");
 
-                    print("Replication Lag is greater than defined Replication Threshold [" + 600 + "] secs");
+            if (replicationLag > replicationLagThreshold) {
 
-                    rsConf.members.forEach(function (rsConfRow, index) {
+                print("Replication Lag is greater than defined Replication Threshold [" + 600 + "] secs");
 
-                        hidden = rsConfRow.hidden;
+                rsConf.members.forEach(function (rsConfRow, index) {
 
-                        if (id == rsConfRow._id) {
-                            if (hidden == false) {
-                                print("Changing to Hidden");
-                                changeMongodVisibility(index, true, 0);
-                            }
+                    hidden = rsConfRow.hidden;
+
+                    if (id == rsConfRow._id) {
+                        if (hidden == false) {
+                            print("Changing to Hidden");
+                            changeMongodVisibility(index, true, 0);
                         }
-                    });
-                } else {
+                    }
+                });
+            } else {
 
-                    print("Replication Lag is less than defined Replication Threshold [" + 600 + "] secs");
+                print("Replication Lag is less than defined Replication Threshold [" + 600 + "] secs");
 
-                    rsConf.members.forEach(function (rsConfRow, index) {
+                rsConf.members.forEach(function (rsConfRow, index) {
 
-                        hidden = rsConfRow.hidden;
+                    hidden = rsConfRow.hidden;
 
-                        if (id == rsConfRow._id) {
-                            if (hidden == true) {
-                                print("Changing to Not Hidden");
-                                changeMongodVisibility(index, false, 0.5);
-                            }
+                    if (id == rsConfRow._id) {
+                        if (hidden == true) {
+                            print("Changing to Not Hidden");
+                            changeMongodVisibility(index, false, 0.5);
                         }
-                    });
-                }
+                    }
+                });
             }
+
         }
 
     });
