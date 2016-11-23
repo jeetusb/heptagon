@@ -73,10 +73,7 @@ if (master == true) {
 
                     if (id == rsConfRow._id) {
                         print("hidden [" + hidden + "] Votes [" + votes + "]");
-                        if(votes=='1'){
-                            print("Votes yes");
-                        }
-                        if (hidden == false) {
+                        if (hidden == true && votes==1) {
                             print("Changing to Hidden");
                             changeMongodVisibility(index, true, 0);
                         }
@@ -93,10 +90,7 @@ if (master == true) {
 
                     if (id == rsConfRow._id) {
                         print("hidden [" + hidden + "] Votes [" + votes + "]");
-                        if(votes==1){
-                            print("Votes yes");
-                        }
-                        if (hidden == true) {
+                        if (hidden == true && votes==1) {
                             print("Changing to Not Hidden");
                             changeMongodVisibility(index, false, 0.5);
                         }
