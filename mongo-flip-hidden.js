@@ -73,6 +73,9 @@ if (master == true) {
 
                     if (id == rsConfRow._id) {
                         print("hidden [" + hidden + "] Votes [" + votes + "]");
+                        if(votes==1){
+                            print("Votes yes");
+                        }
                         if (hidden == false) {
                             print("Changing to Hidden");
                             changeMongodVisibility(index, true, 0);
