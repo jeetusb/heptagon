@@ -73,7 +73,7 @@ if (master == true) {
 
                     if (id == rsConfRow._id) {
                         print("hidden [" + hidden + "] Votes [" + votes + "]");
-                        if(votes==1){
+                        if(votes=='1'){
                             print("Votes yes");
                         }
                         if (hidden == false) {
