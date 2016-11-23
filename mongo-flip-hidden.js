@@ -52,7 +52,6 @@ if (master == true) {
     replicationLagThreshold = 600;
 
     rsStatus.members.forEach(function (row) {
-        votes = row.votes;
         id = row._id;
 
         if (row.stateStr != 'PRIMARY') {
@@ -61,7 +60,7 @@ if (master == true) {
             replicationLag = getReplicationLag(primaryTime, row.optimeDate);
 
             print("Processing Mongo Node with id " + id);
-            print("host [" + row.name + "] State [" + row.stateStr + "] Votes [" + votes + "] Replication Lag [" + replicationLag + "] secs");
+            print("host [" + row.name + "] State [" + row.stateStr + "] Replication Lag [" + replicationLag + "] secs");
 
             if (replicationLag > replicationLagThreshold) {
 
@@ -70,8 +69,10 @@ if (master == true) {
                 rsConf.members.forEach(function (rsConfRow, index) {
 
                     hidden = rsConfRow.hidden;
+                    votes = rsConfRow.votes;
 
                     if (id == rsConfRow._id) {
+                        print("hidden [" + hidden + "] Votes [" + votes + "]");
                         if (hidden == false) {
                             print("Changing to Hidden");
                             changeMongodVisibility(index, true, 0);
@@ -85,8 +86,10 @@ if (master == true) {
                 rsConf.members.forEach(function (rsConfRow, index) {
 
                     hidden = rsConfRow.hidden;
+                    votes = rsConfRow.votes;
 
                     if (id == rsConfRow._id) {
+                        print("hidden [" + hidden + "] Votes [" + votes + "]");
                         if (hidden == true) {
                             print("Changing to Not Hidden");
                             changeMongodVisibility(index, false, 0.5);
