@@ -3,6 +3,8 @@
  * @desc Mongo Server side JS Script to flip mongo secondary to mongo hidden,
  * if there is replication lag greater than defined replication threshold
  * and vice versa.
+ * If there is a deliberate need to keep any replica set member hidden, then, add votes = 0
+ * to it.
  * */
 print("\n====Heptagon Starts here=====\n");
 
