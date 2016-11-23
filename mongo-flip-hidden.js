@@ -61,7 +61,7 @@ if (master == true) {
             replicationLag = getReplicationLag(primaryTime, row.optimeDate);
 
             print("Processing Mongo Node with id " + id);
-            print("host [" + row.name + "] State [" + row.stateStr + "] Votes ["+votes+"] Replication Lag [" + replicationLag + "] secs");
+            print("host [" + row.name + "] State [" + row.stateStr + "] Votes [" + votes + "] Replication Lag [" + replicationLag + "] secs");
 
             if (replicationLag > replicationLagThreshold) {
 
