@@ -6,7 +6,7 @@
  * If there is a deliberate need to keep any replica set member hidden, then, add votes = 0
  * to it.
  * */
-print("\n====Heptagon Starts here=====\n");
+print("\n====Begin of Heptagon=====\n");
 
 master = db.isMaster().ismaster
 
@@ -41,7 +41,7 @@ function changeMongodVisibility(index, hidden, priority) {
 
 if (master == true) {
 
-    print("This is the Master Node.");
+    print("primary node");
 
     rsStatus = rs.status();
     rsConf = rs.conf();
@@ -61,12 +61,12 @@ if (master == true) {
 
             replicationLag = getReplicationLag(primaryTime, row.optimeDate);
 
-            print("Processing Mongo Node with id " + id);
-            print("host [" + row.name + "] State [" + row.stateStr + "] Replication Lag [" + replicationLag + "] secs");
+            print("processing mongod node with id " + id);
+            print("host [" + row.name + "] | state [" + row.stateStr + "] | replication lag [" + replicationLag + "] secs | replication threshold [" + replicationLagThreshold + "] secs");
 
-            if (replicationLag > replicationLagThreshold) {
+            if (replicationLag >= replicationLagThreshold) {
 
-                print("Replication Lag is greater than defined Replication Threshold [" + 600 + "] secs");
+                print("replication lag >= replication threshold");
 
                 rsConf.members.forEach(function (rsConfRow, index) {
 
@@ -75,15 +75,15 @@ if (master == true) {
 
                     if (id == rsConfRow._id) {
                         print("hidden [" + hidden + "] Votes [" + votes + "]");
-                        if (hidden == false && votes==1) {
-                            print("Changing to Hidden");
+                        if (hidden == false && votes == 1) {
+                            print("switch mongod to hidden");
                             changeMongodVisibility(index, true, 0);
                         }
                     }
                 });
             } else {
 
-                print("Replication Lag is less than defined Replication Threshold [" + 600 + "] secs");
+                print("replication lag < replication threshold");
 
                 rsConf.members.forEach(function (rsConfRow, index) {
 
@@ -92,8 +92,8 @@ if (master == true) {
 
                     if (id == rsConfRow._id) {
                         print("hidden [" + hidden + "] Votes [" + votes + "]");
-                        if (hidden == true && votes==1) {
-                            print("Changing to Not Hidden");
+                        if (hidden == true && votes == 1) {
+                            print("switch mongod back to not hidden");
                             changeMongodVisibility(index, false, 0.5);
                         }
                     }
@@ -105,5 +105,7 @@ if (master == true) {
     });
 
 } else {
-    print("Warning:Script only runs on Mongo Primary Nodes.");
+    print("warning:script only runs on mongo primary nodes.");
 }
+
+print("\n====End of Heptagon=====\n");
