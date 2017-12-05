@@ -46,8 +46,8 @@ if (master == true) {
     rsStatus = rs.status();
     rsConf = rs.conf();
 
-    printjson(rsStatus);
-    printjson(rsConf);
+//    printjson(rsStatus);
+//    printjson(rsConf);
 
     primaryTime = getPrimaryTime(rsStatus.members);
 
@@ -75,7 +75,7 @@ if (master == true) {
 
                     if (id == rsConfRow._id) {
                         print("hidden [" + hidden + "] Votes [" + votes + "]");
-                        if (hidden == true && votes==1) {
+                        if (hidden == false && votes==1) {
                             print("Changing to Hidden");
                             changeMongodVisibility(index, true, 0);
                         }
